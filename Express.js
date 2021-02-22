@@ -28,6 +28,9 @@ app.get('/tables', (req, res) => {
     res.sendFile(path.join(__dirname, 'tables.html'))
 });
 
+app.get('/form', (req, res) => {
+    res.sendFile(path.join(__dirname, 'form.html'))
+});
 app.get('/api/tables', (req, res) => {
     res.json(tables);
 });
