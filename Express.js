@@ -21,7 +21,11 @@ const tables = [
 
 // Routes
 app.get('/', (req, res) => {
-    res.send('Listenin at PORT');
+    res.sendFile(path.join(__dirname, 'home.html'))
+});
+
+app.get('/tables', (req, res) => {
+    res.sendFile(path.join(__dirname, 'tables.html'))
 });
 
 app.get('/api/tables', (req, res) => {
@@ -37,6 +41,9 @@ app.post('/api/tables', (req, res) => {
 
     res.json(tables);
 });
+
+app.use('/api/img/fireIcon', express.static(path.join(__dirname, 'assets/hot icon.png')))
+
 
 // Listener
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
