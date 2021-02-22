@@ -8,16 +8,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const tables = [
-    {
-        name: 'Silvia',
-        phone: '12345',
-        email: 'silvia@email.com',
-        id: '54321'
-    }
-];
+const tables = [];
 
-
+const waiting = [];
 
 // Routes
 app.get('/', (req, res) => {
@@ -32,18 +25,26 @@ app.get('/api/tables', (req, res) => {
     res.json(tables);
 });
 
+app.get('/api/waitlist', (req, res) => {
+    res.json(waiting);
+});
+
 app.post('/api/tables', (req, res) => {
     const booking = req.body;
 
     console.log(booking);
 
-    tables.push(booking);
+    if (tables.length >= 5) {
+        waiting.push(booking)
+    }
+    else {
+        tables.push(booking);
+    }
 
-    res.json(tables);
+    res.end();
 });
 
 app.use('/api/img/fireIcon', express.static(path.join(__dirname, 'assets/hot icon.png')))
-
 
 // Listener
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
